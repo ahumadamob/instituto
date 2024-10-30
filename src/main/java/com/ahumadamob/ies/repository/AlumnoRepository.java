@@ -6,4 +6,6 @@ import com.ahumadamob.ies.entity.Alumno;
 
 public interface AlumnoRepository extends JpaRepository<Alumno, Long> {
 
+	public boolean existsByDni(Integer dni);
+
 }

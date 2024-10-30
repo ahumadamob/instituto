@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ahumadamob.ies.entity.Alumno;
+import com.ahumadamob.ies.exception.DuplicateDniException;
 import com.ahumadamob.ies.repository.AlumnoRepository;
 import com.ahumadamob.ies.service.IAlumnoService;
 
@@ -15,7 +16,10 @@ public class AlumnoServiceJpa implements IAlumnoService {
 
 	@Override
 	public Alumno save(Alumno alumno) {
-		return r.save(alumno);
+	    if (alumno.getDni() != null && existsByDni(alumno.getDni())) {
+	        throw new DuplicateDniException("El DNI " + alumno.getDni() + " ya está registrado.");
+	    }
+	    return r.save(alumno);
 	}
 
 	@Override
@@ -30,7 +34,12 @@ public class AlumnoServiceJpa implements IAlumnoService {
 
 	@Override
 	public boolean existsById(Long id) {
-		return (id == null)?null:r.existsById(id);
+		return (id == null)?false:r.existsById(id);
+	}
+
+	@Override
+	public boolean existsByDni(Integer dni) {
+		return r.existsByDni(dni);
 	}
 
 }

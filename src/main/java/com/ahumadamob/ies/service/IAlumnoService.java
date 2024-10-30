@@ -8,5 +8,6 @@ public interface IAlumnoService {
 	public Alumno getById(Long id);
 	public void deleteById(Long id);
 	public boolean existsById(Long id);
+	public boolean existsByDni(Integer dni);
 
 }
