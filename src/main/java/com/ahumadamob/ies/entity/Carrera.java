@@ -9,4 +9,22 @@ public class Carrera extends BaseEntity {
 	
 	@ManyToOne
 	private Resolucion resolucion;
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Resolucion getResolucion() {
+		return resolucion;
+	}
+
+	public void setResolucion(Resolucion resolucion) {
+		this.resolucion = resolucion;
+	}
+	
+	
 }
