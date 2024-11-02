@@ -33,10 +33,15 @@ public class BuildResponse {
 
 	public static<T> ResponseEntity<ResponseDTO<T>> notFound(String message, Long id) {
 		ResponseDTO<T> res = new ResponseDTO<>(HttpStatus.NOT_FOUND.value());
-		res.addError("id", message.replace("{0}", id.toString()) );
+		res.addError("id", injectId(message, id) );
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(res);
 	}
 	
+	public static<T> ResponseEntity<ResponseDTO<T>> notFound(String message) {
+		ResponseDTO<T> res = new ResponseDTO<>(HttpStatus.NOT_FOUND.value());
+		res.addError(null, message);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(res);
+	}
 
 	public static<T> ResponseEntity<ResponseDTO<T>> badRequest(String message, Long id) {
 		ResponseDTO<T> res = new ResponseDTO<>(HttpStatus.BAD_REQUEST.value());
