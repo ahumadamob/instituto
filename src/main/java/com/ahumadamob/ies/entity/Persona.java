@@ -1,7 +1,5 @@
 package com.ahumadamob.ies.entity;
 
-import com.ahumadamob.ies.validation.UniqueDni;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Max;
