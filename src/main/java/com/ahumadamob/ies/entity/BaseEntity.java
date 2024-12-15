@@ -20,10 +20,10 @@ public abstract class BaseEntity {
     private LocalDateTime deletedAt;
 
     @Column(name = "is_deleted")
-    private boolean isDeleted;
+    private Boolean isDeleted;
 
     @Column(name = "is_disabled")
-    private boolean isDisabled;
+    private Boolean isDisabled;
 
     // Getters and Setters
     public Long getId() {
@@ -58,19 +58,19 @@ public abstract class BaseEntity {
         this.deletedAt = deletedAt;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 
-    public boolean isDisabled() {
+    public Boolean isDisabled() {
         return isDisabled;
     }
 
-    public void setDisabled(boolean disabled) {
+    public void setDisabled(Boolean disabled) {
         isDisabled = disabled;
     }
 
@@ -85,5 +85,11 @@ public abstract class BaseEntity {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+        if (isDeleted == null) {
+            isDeleted = false;   // Inicializar como no eliminado si es null
+        }
+        if (isDisabled == null) {
+            isDisabled = false;  // Inicializar como no deshabilitado si es null
+        }       
     }
 }
