@@ -29,6 +29,18 @@ public class BuildResponse {
 		ResponseDTO<T> res = new ResponseDTO<>(HttpStatus.CREATED.value(), data);
 		res.addInfo(null, message);
 		return ResponseEntity.status(HttpStatus.CREATED).body(res);
+    }
+	
+	public static<T> ResponseEntity<ResponseDTO<T>> created(T data) {        
+		ResponseDTO<T> res = new ResponseDTO<>(HttpStatus.CREATED.value(), data);
+		res.addInfo(null, "Registro creado correctamente");
+		return ResponseEntity.status(HttpStatus.CREATED).body(res);
+    }
+	
+	public static<T> ResponseEntity<ResponseDTO<T>> modified(T data) {        
+		ResponseDTO<T> res = new ResponseDTO<>(HttpStatus.OK.value(), data);
+		res.addInfo(null, "Registro modificado correctamente");
+		return ResponseEntity.status(HttpStatus.OK).body(res);
     }	
 
 	public static<T> ResponseEntity<ResponseDTO<T>> notFound(String message, Long id) {
@@ -49,7 +61,16 @@ public class BuildResponse {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
 	}
 	
+	public static<T> ResponseEntity<ResponseDTO<T>> delete(String entity, Long id) {
+		String message = "Se ha eliminado el registro de " + entity + " con id = " + id.toString();
+		ResponseDTO<T> res = new ResponseDTO<>(HttpStatus.OK.value());
+		res.addInfo(null, message);
+		return ResponseEntity.status(HttpStatus.OK).body(res);	
+	}
+	
 	private static String injectId(String message, Long id) {
 		return id==null?message.replace("{0}", ""):message.replace("{0}", id.toString());
 	}
+
+
 }

@@ -1,4 +1,6 @@
 package com.ahumadamob.ies.exception;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +24,14 @@ public class GlobalExceptionHandler {
         }        
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
     }
+    
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // HTTP 400
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ResponseDTO<?>> handleSQLIntegrityConstraintExceptions(SQLIntegrityConstraintViolationException ex) {
+        ResponseDTO<?> dto = new ResponseDTO<>(HttpStatus.BAD_REQUEST.value());
+        dto.addError("field", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
+    }    
     
     @ResponseStatus(HttpStatus.CONFLICT) // HTTP 409
     @ExceptionHandler(DuplicateDniException.class)
